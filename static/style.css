@@ -135,10 +135,10 @@ body::before {
 }
 
 .controls {
-  flex: 1;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
 }
 
 .control-group {
@@ -213,50 +213,38 @@ select:focus {
 }
 
 /* --- History --- */
+/* History Box Styling */
 .history-section {
-  flex: 1;
+  height: 480px;
+  /* Approximately 1/4 of sidebar height */
+  flex: 0 0 auto;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  margin-top: 40px;
-  border-top: var(--border-color) 1px solid;
-  padding-top: 24px;
-}
-
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--text-secondary);
-  margin-bottom: 16px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.icon-btn {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 6px;
-  transition: 0.2s;
-}
-
-.icon-btn:hover {
-  background: rgba(0, 0, 0, 0.05);
-  color: var(--text-primary);
+  margin-top: 16px;
+  overflow: hidden;
+  /* Ensure box stays contained */
 }
 
 .history-list {
+  flex: 1;
+  /* Scrollable area fills the section */
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding-right: 4px;
-  mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+  padding: 12px;
+
+  /* Box Styling */
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  /* Space before footer */
+
+  /* Scrollbar Styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) transparent;
 }
 
 .history-item {
@@ -269,6 +257,9 @@ select:focus {
   transition: all 0.2s;
   color: var(--text-primary);
   opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .history-item:hover {
@@ -276,6 +267,29 @@ select:focus {
   background: rgba(99, 102, 241, 0.05);
   opacity: 1;
   transform: translateX(4px);
+}
+
+.delete-history-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  opacity: 0.4;
+  transition: 0.2s;
+  margin-left: 8px;
+}
+
+.history-item:hover .delete-history-btn {
+  opacity: 1;
+}
+
+.delete-history-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
 }
 
 /* --- Main View --- */
@@ -364,7 +378,7 @@ select:focus {
 /* --- Paper Card --- */
 .markdown-body {
   width: 100%;
-  max-width: 840px;
+  max-width: 1100px;
   /* crucial: center the block element */
   margin: 0 auto;
   background: var(--bg-content);
@@ -544,7 +558,7 @@ select:focus {
 
 /* Sidebar Footer */
 .sidebar-footer {
-  margin-top: auto;
+  margin-top: 24px;
   padding-top: 24px;
   border-top: 1px solid var(--border-color);
 }

@@ -72,6 +72,12 @@ document.addEventListener('DOMContentLoaded', () => {
       this.history = [];
       localStorage.removeItem('lumina_history');
       Render.history();
+    },
+
+    deleteHistoryItem(id) {
+      this.history = this.history.filter(item => item.id !== id);
+      localStorage.setItem('lumina_history', JSON.stringify(this.history));
+      Render.history();
     }
   };
 
@@ -203,10 +209,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const div = document.createElement('div');
         div.className = 'history-item';
         div.innerHTML = `
-                    <div style="font-weight:600">${item.data.blog_title || item.data.topic || 'Untitled'}</div>
-                    <div style="font-size:11px; opacity:0.7">${new Date(item.timestamp).toLocaleDateString()}</div>
-                `;
+           <div class="history-content" style="flex:1">
+              <div style="font-weight:600">${item.data.blog_title || item.data.topic || 'Untitled'}</div>
+              <div style="font-size:11px; opacity:0.7">${new Date(item.timestamp).toLocaleDateString()}</div>
+           </div>
+           <button class="delete-history-btn" title="Delete">×</button>
+        `;
+
         div.onclick = () => Render.blog(item.data);
+
+        const btn = div.querySelector('.delete-history-btn');
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          if (confirm('Delete this history item?')) {
+            AppState.deleteHistoryItem(item.id);
+          }
+        };
+
         els.historyList.appendChild(div);
       });
     }
