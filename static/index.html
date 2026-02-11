@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Studio - AI Blog Architect</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark-reasonable.min.css">
+    
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <h1>Lumina Studio</h1>
+                </div>
+                <p class="tagline">Next-Gen Content Architect</p>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label>Topic / Concept</label>
+                    <input type="text" id="topicInput" placeholder="e.g. The Future of Quantum Computing" autocomplete="off">
+                </div>
+
+                <div class="control-group">
+                    <label>Target Audience</label>
+                    <input type="text" id="audienceInput" placeholder="e.g. Senior Researchers">
+                </div>
+
+                <div class="control-group">
+                    <label>Tone & Style</label>
+                    <div class="select-wrapper">
+                        <select id="toneInput">
+                            <option value="Technical & Deep">Technical & Deep</option>
+                            <option value="Casual & Witty">Casual & Witty</option>
+                            <option value="Executive Summary">Executive Summary</option>
+                            <option value="Tutorial-Style">Tutorial-Style</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="generateBtn" class="btn-primary">
+                    <span class="btn-text">Generate Blueprint</span>
+                    <span class="btn-loader hidden"></span>
+                </button>
+            </div>
+
+            <div class="history-section">
+                <div class="section-header">
+                    <span>Recent Blueprints</span>
+                    <button id="clearHistory" class="icon-btn" title="Clear History">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    </button>
+                </div>
+                <div id="historyList" class="history-list">
+                    <!-- History items injected here -->
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button id="themeToggle" class="theme-btn">
+                    <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <span>Toggle Theme</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-view">
+            <header class="preview-header">
+                <div class="header-info">
+                    <h2 id="previewTitle">New Architecture</h2>
+                    <div class="badges">
+                        <span class="badge" id="badgeAudience">Audience</span>
+                        <span class="badge" id="badgeTone">Tone</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-ghost" onclick="navigator.clipboard.writeText(document.getElementById('markdownContent').innerText)">
+                        Copy Markdown
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-scroll-area">
+                <article id="markdownContent" class="markdown-body">
+                    <div class="empty-state">
+                        <div class="empty-icon">✨</div>
+                        <h3>Ready to Architect</h3>
+                        <p>Enter a topic on the left to generate comprehensive technical content with <strong>Mermaid Diagrams</strong>.</p>
+                    </div>
+                </article>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script Libraries -->
+    <!-- Marked 4.3.0 (Pinned for stability) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
+    <!-- DOMPurify -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.9/purify.min.js"></script>
+    <!-- Highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Mermaid 10.9.1 (ESM compatible build for simple usage) -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+
+    <!-- Application Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
